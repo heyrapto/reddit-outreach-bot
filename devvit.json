@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "outreach-bot",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Trigger Gig Check",
+        "description": "Manually run the outreach bot lead search.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/trigger-gigs"
+      }
+    ]
+  },
+  "scheduler": {
+    "tasks": {
+      "check-gigs-every-2-hours": {
+        "endpoint": "/internal/scheduler/check-gigs",
+        "cron": "0 */2 * * *"
+      }
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "permissions": {
+    "reddit": true,
+    "redis": true
+  },
+  "dev": {
+    "subreddit": "outreach_bot_dev"
+  }
+}
